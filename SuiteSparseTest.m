@@ -59,12 +59,14 @@ for j=1:nn
         % (half,single,double)
         [S_dat1(a),~,its{1,1}(a,1), t_gmres_its{1,1}(a,1)] = gmreslsir3(A,b,0,1,2,maxit,1e-6);
         [S_dat2(a),~,its{1,2}(a,1),t_gmres_its{1,2}(a,1)] = gmreslsir3_bdiag(A,b,0,1,2,maxit,1e-6);
+        [~,~,its{1,5}(a,1),t_gmres_its{1,5}(a,1)] = minreslsir3_bdiag(A,b,0,1,2,maxit,1e-6);
         [~,~,its{1,3}(a,1)] = lsir3(A,b,0,1,2,maxit);
 
         
         % (half,double,quad)
         [D_dat1(a),~,its{2,1}(a,1),t_gmres_its{2,1}(a,1)] = gmreslsir3(A,b,0,2,4,maxit,1e-12);
         [D_dat2(a),~,its{2,2}(a,1),t_gmres_its{2,2}(a,1)] = gmreslsir3_bdiag(A,b,0,2,4,maxit,1e-12);
+        [~,~,its{2,5}(a,1),t_gmres_its{2,5}(a,1)] = minreslsir3_bdiag(A,b,0,2,4,maxit,1e-12);
         [~,~,its{2,3}(a,1)] = lsir3(A,b,0,2,4,maxit);
 
     end
@@ -89,10 +91,12 @@ for i = 1:a
     t1 = its{1,1}(i,1);
     t2 = its{1,2}(i,1);
     t3 = its{1,3}(i,1);
+    t5 = its{1,5}(i,1);
     
     t1a  =  t_gmres_its{1,1}(i,1);
-    t2a  =  t_gmres_its{1,2}(i,1);
-    fprintf(fid1,'%d & %d & %d &(%d) & %d &(%d)\\\\ \n',i,t3,t1,t1a,t2,t2a);
+    t2a  =  t_gmres_its{1,2}(i,1); t5a  =  t_gmres_its{1,5}(i,1);
+    fprintf(fid1,'%d & %d & %d &(%d) & %d &(%d) & %d &(%d)\\\\ \n',i,...
+                t3,t1,t1a,t2,t2a,t5,t5a);
 end
 fprintf(fid1,'\n'); fprintf(fid1,'\n');
 
@@ -102,10 +106,12 @@ for i = 1:a
     t1 = its{2,1}(i,1);
     t2 = its{2,2}(i,1);
     t3 = its{2,3}(i,1);
+    t5 = its{2,5}(i,1);
     
     t1a  =  t_gmres_its{2,1}(i,1);
-    t2a  =  t_gmres_its{2,2}(i,1);
-    fprintf(fid1,'%d & %d & %d &(%d) & %d &(%d)\\\\ \n',i,t3,t1,t1a,t2,t2a);
+    t2a  =  t_gmres_its{2,2}(i,1); t5a  =  t_gmres_its{2,5}(i,1);
+    fprintf(fid1,'%d & %d & %d &(%d) & %d &(%d) & %d &(%d)\\\\ \n',i,...
+                t3,t1,t1a,t2,t2a,t5,t5a);
 end
 
 
